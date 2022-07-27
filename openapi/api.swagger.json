@@ -17,6 +17,26 @@
   ],
   "paths": {
     "/messages": {
+      "get": {
+        "operationId": "MessageService_GetMessages",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/messages.Messages"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "tags": [
+          "MessageService"
+        ]
+      },
       "post": {
         "operationId": "MessageService_CreateMessage",
         "responses": {
@@ -278,11 +298,28 @@
         },
         "body": {
           "$ref": "#/definitions/messages.Message",
-          "title": "@inject_tag: `json:\"body-underscore\"`"
+          "title": "@inject_tag: `json:\"body-with_other-characters\"`"
         }
       },
       "required": [
         "id"
+      ]
+    },
+    "messages.Messages": {
+      "type": "object",
+      "properties": {
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/messages.Messages"
+          },
+          "required": [
+            "messages"
+          ]
+        }
+      },
+      "required": [
+        "messages"
       ]
     }
   }

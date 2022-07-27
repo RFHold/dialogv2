@@ -31,18 +31,25 @@ message Message {
   google.protobuf.Timestamp updated_at = 4 [(google.api.field_behavior) = REQUIRED];
   google.protobuf.Timestamp deleted_at = 5;
 }
+message Messages {
+  repeated Messages messages = 1 [(google.api.field_behavior) = REQUIRED];
+}
 message MessageMutateEvent {
   // @inject_tag: `json:"id"`
   string id = 1 [(google.api.field_behavior) = REQUIRED];
   // @inject_tag: `json:"type"`
   common.MutateEventType type = 2 [(google.api.field_behavior) = REQUIRED];
-  // @inject_tag: `json:"body-underscore"`
+  // @inject_tag: `json:"body-with_other-characters"`
   Message body = 3;
 }
 service MessageService {
   rpc GetMessage (MessageRequest) returns (Message) {
     option (google.api.http) = {
       get: "/messages/{uid}"
+    };}
+  rpc GetMessages (google.protobuf.Empty) returns (Messages) {
+    option (google.api.http) = {
+      get: "/messages"
     };}
   rpc StreamMessages (google.protobuf.Empty) returns (stream MessageMutateEvent) {}
   rpc CreateMessage (CreateMessageRequest) returns (Message) {
