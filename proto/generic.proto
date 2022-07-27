@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package common;
+
+message GenericResponse {
+  // @inject_tag: `json:"status"`
+  RequestStatus status = 1;
+}
+
+message GenericRequest {
+}
+
+enum RequestStatus {
+  SUCCESS = 0;
+  FAILURE = 1;
+  LOCKED = 2;
+  INVALID = 3;
+}
+
+message MutateEvent {
+  // @inject_tag: `json:"id"`
+  string id = 1;
+  // @inject_tag: `json:"type"`
+  MutateEventType type = 2;
+}
+
+enum MutateEventType {
+  FETCH = 0;
+  CREATE = 1;
+  UPDATE = 2;
+  DESTROY = 3;
+}
