@@ -16,6 +16,7 @@ message StreamMessagesResponse {
 }
 message CreateMessageRequest {
   string content = 1 [(google.api.field_behavior) = REQUIRED];
+  string userId = 2 [(google.api.field_behavior) = REQUIRED];
 }
 message UpdateMessageRequest {
   string uid = 1 [(google.api.field_behavior) = REQUIRED];
@@ -35,11 +36,8 @@ message Messages {
   repeated Messages messages = 1 [(google.api.field_behavior) = REQUIRED];
 }
 message MessageMutateEvent {
-  // @inject_tag: `json:"id"`
   string id = 1 [(google.api.field_behavior) = REQUIRED];
-  // @inject_tag: `json:"type"`
   common.MutateEventType type = 2 [(google.api.field_behavior) = REQUIRED];
-  // @inject_tag: `json:"body-with_other-characters"`
   Message body = 3;
 }
 service MessageService {

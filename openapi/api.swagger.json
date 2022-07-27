@@ -235,10 +235,18 @@
           "required": [
             "content"
           ]
+        },
+        "userId": {
+          "type": "string",
+          "title": "@inject_tag: `json:\"user-id\"`",
+          "required": [
+            "userId"
+          ]
         }
       },
       "required": [
-        "content"
+        "content",
+        "userId"
       ]
     },
     "messages.Message": {
