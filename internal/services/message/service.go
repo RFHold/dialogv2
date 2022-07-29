@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"google.golang.org/protobuf/types/known/emptypb"
+	"log"
 )
 
 type ServiceServer struct {
@@ -70,6 +71,7 @@ func (s *ServiceServer) GetMessage(ctx context.Context, in *messages.MessageRequ
 func (s *ServiceServer) CreateMessage(ctx context.Context, in *messages.CreateMessageRequest) (*messages.Message, error) {
 	message := &entities.Message{Content: in.Content}
 
+	log.Fatal(in.UserId)
 	err := s.Repository.CreateMessage(message)
 
 	if err != nil {

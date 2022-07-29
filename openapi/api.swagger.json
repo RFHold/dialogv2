@@ -278,16 +278,16 @@
             "content"
           ]
         },
-        "userId": {
+        "user-id": {
           "type": "string",
           "required": [
-            "userId"
+            "user-id"
           ]
         }
       },
       "required": [
         "content",
-        "userId"
+        "user-id"
       ]
     },
     "messages.Message": {

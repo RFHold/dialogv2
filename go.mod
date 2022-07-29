@@ -10,6 +10,8 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.5.0
 	github.com/pressly/goose v2.7.0+incompatible
+	golang.org/x/lint v0.0.0-20190930215403-16217165b5de
+	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e
 	google.golang.org/genproto v0.0.0-20220719170305-83ca9fad585f
 	google.golang.org/grpc v1.48.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
@@ -38,7 +40,6 @@ require (
 	github.com/stretchr/testify v1.7.2 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/mod v0.6.0-dev.0.20220106191415-9b9b3d81d5e3 // indirect
-	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e // indirect
 	golang.org/x/sys v0.0.0-20220610221304-9f5ed59c137d // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/tools v0.1.10 // indirect

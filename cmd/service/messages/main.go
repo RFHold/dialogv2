@@ -1,15 +1,19 @@
 package main
 
 import (
+	"context"
 	"dialogv2/internal/config"
 	"dialogv2/internal/database"
 	"dialogv2/internal/services/message"
 	"dialogv2/pb/messages"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"log"
 	"net"
+	"net/http"
 )
 
 type environmentConfig struct {
@@ -71,8 +75,31 @@ func main() {
 
 	log.Println("Service registered")
 
+	go runGateway()
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
+}
 
+func runGateway() {
+	log.Println("Setup gateway")
+
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	// Register gRPC server endpoint
+	// Note: Make sure the gRPC server is running properly and accessible
+	mux := runtime.NewServeMux()
+	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
+	err := messages.RegisterMessageServiceHandlerFromEndpoint(ctx, mux, "localhost:50051", opts)
+	if err != nil {
+		log.Fatalf("failed to Register: %v", err)
+	}
+
+	// Start HTTP server (and proxy calls to gRPC server endpoint)
+	err = http.ListenAndServe(":8081", mux)
+	if err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
 }

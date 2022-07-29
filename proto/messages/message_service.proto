@@ -16,7 +16,7 @@ message StreamMessagesResponse {
 }
 message CreateMessageRequest {
   string content = 1 [(google.api.field_behavior) = REQUIRED];
-  string userId = 2 [(google.api.field_behavior) = REQUIRED];
+  string userId = 2 [(google.api.field_behavior) = REQUIRED, json_name="user-id"];
 }
 message UpdateMessageRequest {
   string uid = 1 [(google.api.field_behavior) = REQUIRED];
