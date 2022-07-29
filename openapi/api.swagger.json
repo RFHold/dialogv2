@@ -68,6 +68,48 @@
         ]
       }
     },
+    "/messages/streamed": {
+      "post": {
+        "operationId": "MessageService_StreamMessages",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/messages.MessageMutateEvent"
+                },
+                "error": {
+                  "$ref": "#/definitions/google.rpc.Status"
+                }
+              },
+              "title": "Stream result of messages.MessageMutateEvent"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "tags": [
+          "MessageService"
+        ]
+      }
+    },
     "/messages/{uid}": {
       "get": {
         "operationId": "MessageService_GetMessage",
@@ -238,7 +280,6 @@
         },
         "userId": {
           "type": "string",
-          "title": "@inject_tag: `json:\"user-id\"`",
           "required": [
             "userId"
           ]
@@ -295,18 +336,15 @@
       "properties": {
         "id": {
           "type": "string",
-          "title": "@inject_tag: `json:\"id\"`",
           "required": [
             "id"
           ]
         },
         "type": {
-          "$ref": "#/definitions/common.MutateEventType",
-          "title": "@inject_tag: `json:\"type\"`"
+          "$ref": "#/definitions/common.MutateEventType"
         },
         "body": {
-          "$ref": "#/definitions/messages.Message",
-          "title": "@inject_tag: `json:\"body-with_other-characters\"`"
+          "$ref": "#/definitions/messages.Message"
         }
       },
       "required": [

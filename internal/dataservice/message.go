@@ -2,8 +2,8 @@ package dataservice
 
 import (
 	"context"
-	"dialog/internal/config"
 	"dialog/pb/messages"
+	"dialogv2/internal/config"
 	"fmt"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"

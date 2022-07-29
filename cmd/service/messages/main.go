@@ -1,10 +1,10 @@
 package main
 
 import (
-	"dialog/internal/config"
-	"dialog/internal/database"
-	"dialog/internal/services/message"
-	"dialog/pb/messages"
+	"dialogv2/internal/config"
+	"dialogv2/internal/database"
+	"dialogv2/internal/services/message"
+	"dialogv2/pb/messages"
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
 	"google.golang.org/grpc"

@@ -1,7 +1,7 @@
 package message
 
 import (
-	"dialog/internal/config"
+	"dialogv2/internal/config"
 	"github.com/go-redis/redis/v8"
 )
 

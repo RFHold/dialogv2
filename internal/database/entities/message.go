@@ -1,7 +1,7 @@
 package entities
 
 import (
-	"dialog/pb/messages"
+	"dialogv2/pb/messages"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 

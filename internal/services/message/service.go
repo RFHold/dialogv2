@@ -2,9 +2,9 @@ package message
 
 import (
 	"context"
-	"dialog/internal/database/entities"
-	"dialog/pb"
-	"dialog/pb/messages"
+	"dialogv2/internal/database/entities"
+	"dialogv2/pb"
+	"dialogv2/pb/messages"
 	"encoding/json"
 	"fmt"
 	"github.com/go-redis/redis/v8"

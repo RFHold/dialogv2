@@ -36,9 +36,9 @@ message Messages {
   repeated Messages messages = 1 [(google.api.field_behavior) = REQUIRED];
 }
 message MessageMutateEvent {
-  string id = 1 [(google.api.field_behavior) = REQUIRED];
-  common.MutateEventType type = 2 [(google.api.field_behavior) = REQUIRED];
-  Message body = 3;
+  string id = 1 [(google.api.field_behavior) = REQUIRED, json_name="id"];
+  common.MutateEventType type = 2 [(google.api.field_behavior) = REQUIRED, json_name="type"];
+  Message body = 3 [json_name="body"];
 }
 service MessageService {
   rpc GetMessage (MessageRequest) returns (Message) {
@@ -49,7 +49,12 @@ service MessageService {
     option (google.api.http) = {
       get: "/messages"
     };}
-  rpc StreamMessages (google.protobuf.Empty) returns (stream MessageMutateEvent) {}
+  rpc StreamMessages (google.protobuf.Empty) returns (stream MessageMutateEvent) {
+    option (google.api.http) = {
+      post: "/messages/streamed"
+      body: "*"
+    };
+  }
   rpc CreateMessage (CreateMessageRequest) returns (Message) {
     option (google.api.http) = {
       post: "/messages"

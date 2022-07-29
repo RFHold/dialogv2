@@ -1,7 +1,7 @@
 package database
 
 import (
-	"dialog/internal/config"
+	"dialogv2/internal/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"

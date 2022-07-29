@@ -50,6 +50,12 @@ run-messages:
 dev:
 	docker compose -f $(COMPOSE_FILE) up postgres redis rabbitmq
 
+install-tools:
+	@printf $(BLUE) "> Installing local development tools..."
+	$(eval tools := $(shell cat tools.go | grep _ | awk -F'"' '{print $$2}'))
+	@echo $(tools) | tr ' ' '\n';
+	@go install $(tools)
+
 buf:
 	rm -rf pb/*
 	docker run --rm --volume "$(BUF_WRK):/wrk" -w /wrk/$(BUF_WORKSPACE) $(BUF_IMAGE) build -o $(BUF_IMG)
