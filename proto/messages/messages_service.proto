@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "generic.proto";
+
+package messages;
+
+message StreamMessagesResponse {
+  string uid = 1;
+  string content = 2;
+  string date = 3;
+}
+message CreateRequest {
+  string content = 1;
+}
+message UpdateRequest {
+  string uid = 1;
+  string content = 2;
+}
+message Message {
+  string uid = 1;
+  string content = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+  google.protobuf.Timestamp deleted_at = 5;
+}
+message Messages {
+  repeated Messages messages = 1;
+}
+message MutateEvent {
+  string id = 1;
+  common.MutateEventType type = 2;
+  Message body = 3;
+}
+service Service {
+  rpc Get (common.GenericRequest) returns (Message) { }
+  rpc Stream (google.protobuf.Empty) returns (stream MutateEvent) { }
+  rpc Create (CreateRequest) returns (Message) { }
+  rpc Update (UpdateRequest) returns (Message) { }
+  rpc Delete (common.GenericRequest) returns (common.GenericResponse) { }
+}

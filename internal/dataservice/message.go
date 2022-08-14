@@ -2,8 +2,9 @@ package dataservice
 
 import (
 	"context"
-	"dialog/pb/messages"
 	"dialogv2/internal/config"
+	"dialogv2/pb"
+	"dialogv2/pb/messages"
 	"fmt"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -12,7 +13,7 @@ import (
 )
 
 type MessageClient struct {
-	client messages.MessageServiceClient
+	client messages.ServiceClient
 }
 
 func DialMessageClient(cfg *config.ServiceConfig) *MessageClient {
@@ -23,17 +24,17 @@ func DialMessageClient(cfg *config.ServiceConfig) *MessageClient {
 		log.Fatalf("did not connect: %s", err)
 	}
 
-	c := messages.NewMessageServiceClient(conn)
+	c := messages.NewServiceClient(conn)
 
 	return &MessageClient{client: c}
 }
 
 func (c MessageClient) GetMessage(uid string) (*messages.Message, error) {
-	return c.client.GetMessage(context.Background(), &messages.MessageRequest{Uid: uid})
+	return c.client.Get(context.Background(), &pb.GenericRequest{Uid: uid})
 }
 
-func (c MessageClient) StreamMessages(cb func(event *messages.MessageMutateEvent) error) error {
-	stream, err := c.client.StreamMessages(context.Background(), &emptypb.Empty{})
+func (c MessageClient) StreamMessages(cb func(event *messages.MutateEvent) error) error {
+	stream, err := c.client.Stream(context.Background(), &emptypb.Empty{})
 
 	if err != nil {
 		return err
@@ -55,16 +56,16 @@ func (c MessageClient) StreamMessages(cb func(event *messages.MessageMutateEvent
 	return err
 }
 
-func (c MessageClient) CreateMessage(input *messages.CreateMessageRequest) (*messages.Message, error) {
-	return c.client.CreateMessage(context.Background(), input)
+func (c MessageClient) CreateMessage(input *messages.CreateRequest) (*messages.Message, error) {
+	return c.client.Create(context.Background(), input)
 }
 
-func (c MessageClient) UpdateMessage(input *messages.UpdateMessageRequest) (*messages.Message, error) {
-	return c.client.UpdateMessage(context.Background(), input)
+func (c MessageClient) UpdateMessage(input *messages.UpdateRequest) (*messages.Message, error) {
+	return c.client.Update(context.Background(), input)
 }
 
 func (c MessageClient) DeleteMessage(uid string) error {
-	_, err := c.client.DeleteMessage(context.Background(), &messages.MessageRequest{Uid: uid})
+	_, err := c.client.Delete(context.Background(), &pb.GenericRequest{Uid: uid})
 
 	return err
 }
